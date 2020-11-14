@@ -67,3 +67,54 @@ class Player {
     }
 
 }
+
+
+const validationFuncs = {
+    battleGround: function (text) {
+        const value = Number(text);
+        if (value < 3 || !Number.isInteger(value)) {
+            console.log('Please enter a valid integer higher than 2');
+            return false;
+        }
+        return true
+    },
+    validInteger: function (text) {
+        const value = Number(text);
+        if (value < 1 || !Number.isInteger(value)) {
+            console.log('Please enter a valid integer higher than 0');
+            return false;
+        }
+        return true
+    }
+
+}
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+
+});
+
+const ask = (question) => {
+
+    return new Promise((resolve, reject) => {
+        rl.question(question, (input) => {
+
+            resolve(input)
+        });
+    });
+};
+
+async function asyncCall() {
+    let check = false;
+    while (!check) {
+        const result = await ask('Please enter the battle ground size:', validationFuncs.battleGround);
+        check = validationFuncs.battleGround(result)
+    }
+
+}
+
+
+asyncCall()
