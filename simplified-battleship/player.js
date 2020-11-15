@@ -31,21 +31,18 @@ class Player {
     }
 
     //Locate the ship on the map when user enter all the info
-    shipLocator() {
+    shipLocator(index) {
 
-        for (const index in this.shipSpec) {
+        const ship = this.shipSpec[index];
+        const [row, column] = cartesianPosition(ship.position);
 
-            const ship = this.shipSpec[index];
-            const [row, column] = cartesianPosition(ship.position);
+        for (let i = 0; i < ship.size; i++) {
 
-            for (let i = 0; i < ship.size; i++) {
+            if (ship.direction.toLowerCase() === 'h') {
+                this.battleGround[row - 1][column - 1 + i] = 'S';
 
-                if (ship.direction.toLowerCase() === 'h') {
-                    this.battleGround[row - 1][column - 1 + i] = 'S';
-
-                } else if (ship.direction.toLowerCase() === 'v') {
-                    this.battleGround[row - 1 + i][column - 1] = 'S';
-                }
+            } else if (ship.direction.toLowerCase() === 'v') {
+                this.battleGround[row - 1 + i][column - 1] = 'S';
             }
         }
 

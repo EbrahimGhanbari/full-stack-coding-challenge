@@ -25,13 +25,13 @@ const ask = (question) => {
 
 };
 
-async function asyncAsk(question, validationFunction, player = {}) {
+async function asyncAsk(question, validationFunction, player = {}, shipNumber = NaN) {
     let check = false;
     let result = '';
 
     while (!check) {
         result = await ask(question);
-        check = validationFunction(result, player)
+        check = validationFunction(result, player, shipNumber)
     }
     return result;
 }
@@ -42,18 +42,18 @@ async function asyncCall() {
     let input = await asyncAsk(`Please enter the battle ground size: `, validationFuncs.battleGround);
     players.forEach(player => player.battleGroundMaker(Number(input)));
 
-    input = await asyncAsk(`Please enter number of ships for players: `, validationFuncs.validInteger);
+    input = await asyncAsk(`Please enter number of ships for players: `, validationFuncs.shipNumber);
     const shipCount = Number(input);
     players.forEach(player => player.shipCount(shipCount));
 
     for (let i = 1; i <= shipCount; i++) {
-        input = await asyncAsk(`Enter the ship size of the ${i}th ship: `, validationFuncs.validInteger);
+        input = await asyncAsk(`Enter the size of the ${i}th ship: `, validationFuncs.shipSize, players[0]);
         players.forEach(player => player.shipSpecGet(i, "size", Number(input)));
     }
 
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
-            input = await asyncAsk(`${player.name}: Enter the ship direction of ${i}th ship (v for vertical, h for horizontal): `, validationFuncs.direction);
+            input = await asyncAsk(`${player.name}: Enter the direction of ${i}th ship (v for vertical, h for horizontal): `, validationFuncs.direction);
             player.shipSpecGet(i, "direction", input);
         }
     }
@@ -61,44 +61,13 @@ async function asyncCall() {
 
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
-            input = await asyncAsk(`${player.name}: Enter the ship position of ${i}th ship: `, validationFuncs.battleshipPosition, player);
+            input = await asyncAsk(`${player.name}: Enter the position of ${i}th ship: `, validationFuncs.battleshipPosition, player, i);
             player.shipSpecGet(i, "position", input);
+            player.shipLocator(`${i}`)
         }
     }
 
-    // for (let i = 1; i <= shipCount; i++) {
-    //     check = false;
-    //     result = '';
-    //     while (!check) {
-    //         result = await ask(`${playerOne.name}: Enter the ship position: `);
-    //         check = true
-    //     }
-    //     playerOne.shipSpecGet(i, "position", result);
-    // }
-
-    // // console.log(playerOne)
-
-    // for (let i = 1; i <= shipCount; i++) {
-    //     check = false;
-    //     result = '';
-    //     while (!check) {
-    //         result = await ask(`${playerTwo.name}: Enter the ship position:  `);
-    //         check = true
-    //     }
-    //     playerTwo.shipSpecGet(i, "position", result);
-
-    // }
-
-    players.forEach(player => player.shipLocator());
-
-    // while (true) {
-    //     playerOne.hit
-    // }
-
-
-    console.log(playerOne)
-
-
+    
 
     rl.close()
 }
