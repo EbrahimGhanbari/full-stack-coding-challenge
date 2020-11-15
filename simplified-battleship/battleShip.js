@@ -1,120 +1,118 @@
 
-
-const cartesianPosition = (position) => {
-
-    const row = Number(position.slice(1, 3));
-    const column = position.toUpperCase().charCodeAt(0) - 64;
-
-    return [row, column];
-
-}
-
-
-class Player {
-
-    constructor(width, height) {
-        this.width = width;
-        this.height = height;
-        const battleGround = [];
-
-        for (let i = 0; i < this.height; i++) {
-            battleGround.push([]);
-            for (let j = 0; j < this.width; j++) {
-                battleGround[i].push('-');
-            }
-        }
-
-        this.battleGround = battleGround;
-    }
-
-    shipLocator(position, direction, shipLength) {
-        const [row, column] = cartesianPosition(position);
-
-        //validate direction
-        if (direction.toLowerCase() === 'h' && (column + shipLength - 1) > this.width) {
-            return false;
-        }
-        if (direction.toLowerCase() === 'v' && (row + shipLength - 1) > this.height) {
-            return false;
-        }
-
-        for (let i = 0; i < shipLength; i++) {
-
-            if (direction.toLowerCase() === 'h') {
-                this.battleGround[row - 1][column - 1 + i] = 'S';
-
-            } else if (direction.toLowerCase() === 'v') {
-                this.battleGround[row - 1 + i][column - 1] = 'S';
-            }
-
-        }
-
-    }
-
-    shoot(position) {
-        const [row, column] = cartesianPosition(position);
-        this.battleGround[row - 1][column - 1] = 'X';
-        console.log(this.battleGround)
-
-    }
-
-    countLives() {
-        let count = 0;
-        for (let row of this.battleGround) {
-            count += row.filter(element => element === 'S').length;
-        }
-        return count;
-    }
-
-}
-
-
-const validationFuncs = {
-    battleGround: function (text) {
-        const value = Number(text);
-        if (value < 3 || !Number.isInteger(value)) {
-            console.log('Please enter a valid integer higher than 2');
-            return false;
-        }
-        return true
-    },
-    validInteger: function (text) {
-        const value = Number(text);
-        if (value < 1 || !Number.isInteger(value)) {
-            console.log('Please enter a valid integer higher than 0');
-            return false;
-        }
-        return true
-    }
-
-}
-
+const Player = require('./player.js');
+const validationFuncs = require('./validation.js');
 const readline = require('readline');
 
+const playerOne = new Player("Player_1");
+const playerTwo = new Player("Player_2");
+const players = [playerOne, playerTwo];
+
+
+//Create user input interface
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 
 });
 
+// Async func for getting user input
 const ask = (question) => {
-
     return new Promise((resolve, reject) => {
         rl.question(question, (input) => {
-
             resolve(input)
-        });
-    });
+        })
+    })
+
 };
 
-async function asyncCall() {
+async function asyncAsk(question, validationFunction, player = {}) {
     let check = false;
+    let result = '';
+
     while (!check) {
-        const result = await ask('Please enter the battle ground size:', validationFuncs.battleGround);
-        check = validationFuncs.battleGround(result)
+        result = await ask(question);
+        check = validationFunction(result, player)
+    }
+    return result;
+}
+
+
+async function asyncCall() {
+
+    let input = await asyncAsk(`Please enter the battle ground size: `, validationFuncs.battleGround);
+    players.forEach(player => player.battleGroundMaker(Number(input)));
+
+    input = await asyncAsk(`Please enter number of ships for players: `, validationFuncs.validInteger);
+    const shipCount = Number(input);
+    players.forEach(player => player.shipCount(shipCount));
+
+    for (let i = 1; i <= shipCount; i++) {
+        input = await asyncAsk(`Enter the ship size of the ${i}th ship: `, validationFuncs.validInteger);
+        players.forEach(player => player.shipSpecGet(i, "size", Number(input)));
     }
 
+    for (const player of players) {
+        for (let i = 1; i <= shipCount; i++) {
+            input = await asyncAsk(`${player.name}: Enter the ship direction of ${i}th ship (v for vertical, h for horizontal): `, validationFuncs.direction);
+            player.shipSpecGet(i, "direction", input);
+        }
+    }
+
+
+    for (const player of players) {
+        for (let i = 1; i <= shipCount; i++) {
+            input = await asyncAsk(`${player.name}: Enter the ship position of ${i}th ship: `, validationFuncs.battleshipPosition, player);
+            player.shipSpecGet(i, "position", input);
+        }
+    }
+
+    // for (let i = 1; i <= shipCount; i++) {
+    //     check = false;
+    //     result = '';
+    //     while (!check) {
+    //         result = await ask(`${playerOne.name}: Enter the ship position: `);
+    //         check = true
+    //     }
+    //     playerOne.shipSpecGet(i, "position", result);
+    // }
+
+    // // console.log(playerOne)
+
+    // for (let i = 1; i <= shipCount; i++) {
+    //     check = false;
+    //     result = '';
+    //     while (!check) {
+    //         result = await ask(`${playerTwo.name}: Enter the ship position:  `);
+    //         check = true
+    //     }
+    //     playerTwo.shipSpecGet(i, "position", result);
+
+    // }
+
+    players.forEach(player => player.shipLocator());
+
+    // while (true) {
+    //     playerOne.hit
+    // }
+
+
+    console.log(playerOne)
+
+
+
+    rl.close()
 }
 
 
 asyncCall()
+
+
+
+
+// // Please enter the battle ground size (it can be any dimension)
+// // Please enter number of ships for each player
+// // 'Player 1': Enter the ship size of your '1'th ship
+// // 'Player 1': Enter the ship location of '1'th ship
+// // 'Player 1': Enter the ship direction of '1'th ship (enter v for h for horizontal, this ship will be extended to bottom and right)
+// // Repeat till all ships are entered
+// // Repeat for player two
