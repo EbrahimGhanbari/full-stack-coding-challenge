@@ -100,4 +100,9 @@ We want you to submit a solution you're proud of and we want you to be successfu
 ## Sample Output
 Below is an example output, but feel free to be creative.
 
-![sample output](example-output.png)
+![sample output](snapshot_1.png)
+![sample output](snapshot_2.png)
+![sample output](snapshot_3.png)
+
+
+# Solution
