@@ -3,6 +3,12 @@
 ## Description
 A simplified implementation of the classic game, Battleship.
 
+## Instructions
+To play the game, in the same folder as the files are run the following command.
+```javascript
+node battleship.js
+```
+
 ## Features
 - A two-player game that each player has a board. 
 - Player can choose the board size at the begining and the board size will be the same for both players.
