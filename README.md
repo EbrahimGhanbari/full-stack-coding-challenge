@@ -28,9 +28,9 @@ node battleShip.js
 ## Output
 Below is a snapshot of output.
 
-![sample output](snapshot_1.png)
-![sample output](snapshot_2.png)
-![sample output](snapshot_3.png)
+![sample output](snapshot_1.PNG)
+![sample output](snapshot_2.PNG)
+![sample output](snapshot_3.PNG)
 
 
 # Solution
