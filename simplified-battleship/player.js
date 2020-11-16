@@ -1,4 +1,5 @@
-const cartesianPosition = require('./helperFunctions')
+const helperFunctions = require('./helperFunctions')
+const cartesianPosition = helperFunctions.cartesianPosition;
 
 class Player {
     constructor(name) {

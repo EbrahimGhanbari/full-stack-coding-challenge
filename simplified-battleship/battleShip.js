@@ -74,7 +74,7 @@ async function asyncCall() {
             players[j].hit(input);
 
             if (players[j].countLives() === 0) {
-                console.log(`Congrt!!! ${players[i].name} won the game!`);
+                console.log(`\n *******Congrt!!! ${players[i].name} won the game!********`);
                 gameOver = true;
                 break;
             }
