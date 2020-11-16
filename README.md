@@ -1,7 +1,7 @@
 # Battleship
 
-## Purpose
-Create a simplified implementation of the classic game, Battleship, that best illustrates programming skills. This exercise should take no longer than 4 hours to complete.
+## Description
+A simplified implementation of the classic game, Battleship.
 
 ## Features
 - A two-player game that each player has a board. 
