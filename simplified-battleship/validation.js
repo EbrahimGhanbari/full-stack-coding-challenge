@@ -57,6 +57,12 @@ const validationFuncs = {
             return false;
         }
 
+        //Check if the position is inside the board
+        if (row > player.battleGround.length || column > player.battleGround.length) {
+            console.log(`You placed the ship outside the board. Please enter valid position agian!`);
+            return false;
+        }
+
         //Check if it fits the board
         const shipSpec = player.shipSpec[shipNumber];
         if (shipSpec.direction === 'h' && column + shipSpec.size - 1 > player.battleGround.length) {

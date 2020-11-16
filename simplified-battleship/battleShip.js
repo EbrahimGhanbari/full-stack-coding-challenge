@@ -7,12 +7,10 @@ const playerOne = new Player("Player_1");
 const playerTwo = new Player("Player_2");
 const players = [playerOne, playerTwo];
 
-
 //Create user input interface
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
-
 });
 
 // Async func for getting user input
@@ -22,7 +20,6 @@ const ask = (question) => {
             resolve(input)
         })
     })
-
 };
 
 //Generic async function that gets question and validation function 
@@ -59,6 +56,8 @@ async function asyncCall() {
         }
     }
 
+    players.forEach(player => player.print());
+
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
             input = await asyncAsk(`${player.name}: Enter the position of ${i}th ship: `, validationFuncs.battleshipPosition, player, i);
@@ -67,8 +66,6 @@ async function asyncCall() {
         }
     }
 
-    players.forEach(player => player.print());
-    
     //This section manage taking turns for the players to shoot
     let gameOver = false;
     while (!gameOver) {
@@ -82,7 +79,6 @@ async function asyncCall() {
                 break;
             }
         }
-
     }
 
     players.forEach(player => player.print());
