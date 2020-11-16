@@ -25,6 +25,10 @@ node battleShip.js
 - Program let user know if he/she placed his/her on another ship.
 - Program let user know if he/she fires his/her shot outside of the board.
 
+## Challanges
+- Deciding on the general frame of the code.
+- Using Promise, Async and Await features made the code readibility much better. 
+
 ## Output
 Below is a snapshot of output.
 
@@ -33,4 +37,4 @@ Below is a snapshot of output.
 ![sample output](snapshot_3.PNG)
 
 
-# Solution
+
