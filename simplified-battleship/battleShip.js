@@ -69,6 +69,7 @@ async function asyncCall() {
 
     players.forEach(player => player.print());
     
+    //This section manage taking turns for the players to shoot
     let gameOver = false;
     while (!gameOver) {
         for (let i = 0, j = players.length - 1; i < players.length; i++, j--) {
