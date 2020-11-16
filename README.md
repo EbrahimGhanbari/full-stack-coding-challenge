@@ -6,7 +6,7 @@ A simplified implementation of the classic game, Battleship.
 ## Instructions
 To play the game, in the same folder as the files are run the following command.
 ```javascript
-node battleship.js
+node battleShip.js
 ```
 
 ## Features
