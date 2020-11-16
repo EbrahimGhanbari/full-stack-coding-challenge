@@ -25,7 +25,9 @@ const ask = (question) => {
 
 };
 
-async function asyncAsk(question, validationFunction, player = {}, shipNumber = NaN) {
+//Generic async function that gets question and validation function 
+//The program keep asking the same question until it gets valid input from user
+async function asyncAsk(question, validationFunction, player = {}, shipNumber = 0) {
     let check = false;
     let result = '';
 
@@ -35,7 +37,6 @@ async function asyncAsk(question, validationFunction, player = {}, shipNumber = 
     }
     return result;
 }
-
 
 async function asyncCall() {
 
@@ -58,7 +59,6 @@ async function asyncCall() {
         }
     }
 
-
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
             input = await asyncAsk(`${player.name}: Enter the position of ${i}th ship: `, validationFuncs.battleshipPosition, player, i);
@@ -67,21 +67,26 @@ async function asyncCall() {
         }
     }
 
+    players.forEach(player => player.print());
     
+    let gameOver = false;
+    while (!gameOver) {
+        for (let i = 0, j = players.length - 1; i < players.length; i++, j--) {
+            input = await asyncAsk(`${players[i].name}: Enter the position to hit ${players[j].name}: `, validationFuncs.shootPosition, players[0]);
+            players[j].hit(input);
 
-    rl.close()
+            if (players[j].countLives() === 0) {
+                console.log(`Congrt!!! ${players[i].name} won the game!`);
+                gameOver = true;
+                break;
+            }
+        }
+
+    }
+
+    players.forEach(player => player.print());
+
+    rl.close();
 }
 
-
 asyncCall()
-
-
-
-
-// // Please enter the battle ground size (it can be any dimension)
-// // Please enter number of ships for each player
-// // 'Player 1': Enter the ship size of your '1'th ship
-// // 'Player 1': Enter the ship location of '1'th ship
-// // 'Player 1': Enter the ship direction of '1'th ship (enter v for h for horizontal, this ship will be extended to bottom and right)
-// // Repeat till all ships are entered
-// // Repeat for player two

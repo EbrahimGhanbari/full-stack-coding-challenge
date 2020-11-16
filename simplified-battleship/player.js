@@ -48,11 +48,10 @@ class Player {
 
     }
 
-    //
+    //Mark the board when player shoot
     hit(position) {
         const [row, column] = cartesianPosition(position);
         this.battleGround[row - 1][column - 1] = 'X';
-        console.log(this.battleGround)
     }
 
     //Count the lives of the palyer
@@ -64,7 +63,28 @@ class Player {
         return count;
     }
 
+    //Print the board
+    print() {
 
+        const lengthBattleGround = this.battleGround.length;
+        let output = `${this.name} board\n    `;
+        for (let i = 0; i < lengthBattleGround; i++) {
+            output += `${String.fromCharCode(65 + i)} `
+        }
+
+        for (let i = 0; i < lengthBattleGround; i++) {
+            output += `\n ${i + 1} `;
+            if (i < 9)
+                output += ` `;
+
+            for (let j = 0; j < lengthBattleGround; j++) {
+                output += `${this.battleGround[i][j]} `
+            }
+
+        }
+        console.log(output)
+
+    }
 
 }
 

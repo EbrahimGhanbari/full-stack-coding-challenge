@@ -30,7 +30,7 @@ const validationFuncs = {
             console.log('Please enter a valid integer higher than 0');
             return false;
         }
-        if(value > player.battleGround.length){
+        if (value > player.battleGround.length) {
             console.log('The ship size is bigger than the battle ground!');
             return false;
         }
@@ -84,21 +84,27 @@ const validationFuncs = {
         }
         return true;
 
-    }
+    },
+
+    //Check if shot position is valid
+    shootPosition: function (text, player) {
+        //Check if it is correct format
+        const [row, column] = cartesianPosition(text);
+
+        if (row < 0 || !row || column < 0 || column > 26) {
+            console.log(`The position you entered is not valid (first letter need to be Alphabet and the rest integer e.g 'A1')!!`);
+            return false;
+        }
+
+        if (row > player.battleGround.length || column > player.battleGround.length) {
+            console.log(`You hit outside the board. Please enter valid position agian!`);
+            return false;
+        }
+
+        return true;
+
+    },
 
 }
-
-// const player =
-// {
-//     "name": 'Player_1',
-//     "shipSpec": { '1': { size: 2, direction: 'h', position: 'C1' } },
-//     "battleGround":
-//         [['S', '-', '-', '-'],
-//         ['-', '-', '-', '-'],
-//         ['-', '-', '-', '-'],
-//         ['-', '-', '-', '-']]
-// };
-
-// validationFuncs.battleshipPosition('A2', player, 1)
 
 module.exports = validationFuncs;
