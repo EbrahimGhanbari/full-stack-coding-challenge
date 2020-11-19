@@ -9,10 +9,12 @@ To play the game run the following command.
 npm start
 ```
 
-To run the tests, use the following command. Recommended version of the node: ** v10.23.0 **
+To run the tests, use the following command. 
 ```javascript
 npm run test
 ```
+
+Please note that Jest (to run the test) might not work with older version of Node. The recommended version of the node to run the test is: **v10.23.0**
 
 
 ## Features
