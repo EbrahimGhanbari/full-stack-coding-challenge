@@ -1,0 +1,23 @@
+{
+  "name": "full-stack-coding-challenge",
+  "version": "1.0.0",
+  "description": "## Description A simplified implementation of the classic game, Battleship.",
+  "main": "battleShip.js",
+  "scripts": {
+    "start": "node battleShip.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EbrahimGhanbari/full-stack-coding-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EbrahimGhanbari/full-stack-coding-challenge/issues"
+  },
+  "homepage": "https://github.com/EbrahimGhanbari/full-stack-coding-challenge#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
