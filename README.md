@@ -4,9 +4,14 @@
 A simplified implementation of the classic game, Battleship.
 
 ## Instructions
-To play the game, in the same folder as the files are run the following command.
+To play the game run the following command.
 ```javascript
-node battleShip.js
+npm start
+```
+
+To run the tests run the following command.
+```javascript
+npm run test
 ```
 
 ## Features
