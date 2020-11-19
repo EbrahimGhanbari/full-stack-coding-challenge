@@ -9,10 +9,13 @@ To play the game run the following command.
 npm start
 ```
 
-To run the tests run the following command.
+To run the tests, use the following command. 
 ```javascript
 npm run test
 ```
+
+Please note that Jest might not work with older version of Node. The recommended version to run the test is: **v10.23.0**
+
 
 ## Features
 - A two-player game that each player has a board. 
