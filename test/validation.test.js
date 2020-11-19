@@ -18,6 +18,7 @@ player.shipLocator('2');
 
 player.print();
 
+//Test "battleGround" function
 test('test validation func for battle ground dimension', () => {
   expect(validationFuncs.battleGround('0')).toBe(false);
   expect(validationFuncs.battleGround('2')).toBe(false);
@@ -30,6 +31,7 @@ test('test validation func for battle ground dimension', () => {
   expect(validationFuncs.battleGround('27')).toBe(false);
 });
 
+//Test "shipNumber" function 
 test('test validation func for number of ship per player', () => {
   expect(validationFuncs.shipNumber('0')).toBe(false);
   expect(validationFuncs.shipNumber('-1')).toBe(false);
@@ -41,6 +43,7 @@ test('test validation func for number of ship per player', () => {
   expect(validationFuncs.shipNumber('100')).toBe(true);
 });
 
+//Test "shipSize" function
 test('test validation func for ship size', () => {
   expect(validationFuncs.shipSize('0', player)).toBe(false);
   expect(validationFuncs.shipSize('-1', player)).toBe(false);
@@ -54,6 +57,7 @@ test('test validation func for ship size', () => {
   expect(validationFuncs.shipSize('100', player)).toBe(false);
 });
 
+//Test "direction" function
 test('test validation func for ship direction', () => {
   expect(validationFuncs.direction('0', player)).toBe(false);
   expect(validationFuncs.direction('-1', player)).toBe(false);
@@ -67,7 +71,7 @@ test('test validation func for ship direction', () => {
   expect(validationFuncs.direction('V', player)).toBe(true);
 });
 
-// Test "battleshipPosition" function
+//Test "battleshipPosition" function
 test('test validation func for ship position - user enter invalid input', () => {
   expect(validationFuncs.battleshipPosition('0', player, 3)).toBe(false);
   expect(validationFuncs.battleshipPosition('-1', player, 3)).toBe(false);
@@ -109,7 +113,7 @@ test('test validation func for ship position - user place ship in valid position
   expect(validationFuncs.battleshipPosition('b2', player, 3)).toBe(true);
 });
 
-// Test "shootPosition" function
+//Test "shootPosition" function
 test('test validation func for ship position - user enter invalid input', () => {
   expect(validationFuncs.shootPosition('0', player)).toBe(false);
   expect(validationFuncs.shootPosition('-1', player)).toBe(false);
