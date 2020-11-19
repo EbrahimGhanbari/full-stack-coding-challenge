@@ -4,13 +4,15 @@ const Player = require('../player.js');
 //Create player class
 const player = new Player("Player_1");
 player.battleGroundMaker('20');
-player.shipCount('3');
+player.shipCount('4');
 player.ship(1, "size", 3);
 player.ship(2, "size", 3);
 player.ship(3, "size", 3);
+player.ship(4, "size", 1);
 player.ship(1, "direction", 'h');
 player.ship(2, "direction", 'v');
 player.ship(3, "direction", 'h');
+player.ship(4, "direction", 'h');
 player.ship(1, "position", 'E5');
 player.ship(2, "position", 'T5');
 player.shipLocator('1');
@@ -96,12 +98,18 @@ test('test validation func for ship position - user place ship outside of board'
   expect(validationFuncs.battleshipPosition('S1', player, 3)).toBe(false);
   expect(validationFuncs.battleshipPosition('T1', player, 3)).toBe(false);
   expect(validationFuncs.battleshipPosition('s20', player, 3)).toBe(false);
+  expect(validationFuncs.battleshipPosition('s121', player, 4)).toBe(false);
+  expect(validationFuncs.battleshipPosition('s111', player, 4)).toBe(false);
+  expect(validationFuncs.battleshipPosition('t100', player, 4)).toBe(false);
+  expect(validationFuncs.battleshipPosition('t21', player, 4)).toBe(false);
 });
 
 test('test validation func for ship position - ship can not occupy same grid', () => {
   expect(validationFuncs.battleshipPosition('c5', player, 3)).toBe(false);
   expect(validationFuncs.battleshipPosition('e5', player, 3)).toBe(false);
   expect(validationFuncs.battleshipPosition('r7', player, 3)).toBe(false);
+  expect(validationFuncs.battleshipPosition('t7', player, 4)).toBe(false);
+  expect(validationFuncs.battleshipPosition('f5', player, 4)).toBe(false);
 });
 
 test('test validation func for ship position - user place ship in valid position', () => {
@@ -111,6 +119,10 @@ test('test validation func for ship position - user place ship in valid position
   expect(validationFuncs.battleshipPosition('h10', player, 3)).toBe(true);
   expect(validationFuncs.battleshipPosition('A10', player, 3)).toBe(true);
   expect(validationFuncs.battleshipPosition('b2', player, 3)).toBe(true);
+  expect(validationFuncs.battleshipPosition('t20', player, 4)).toBe(true);
+  expect(validationFuncs.battleshipPosition('a20', player, 4)).toBe(true);
+  expect(validationFuncs.battleshipPosition('t4', player, 4)).toBe(true);
+  expect(validationFuncs.battleshipPosition('d5', player, 4)).toBe(true);
 });
 
 //Test "shootPosition" function
@@ -133,9 +145,15 @@ test('test validation func for ship position - user enter invalid input', () => 
 test('test validation func for ship position - user place ship outside of board', () => {
   expect(validationFuncs.shootPosition('e100', player)).toBe(false);
   expect(validationFuncs.shootPosition('a21', player)).toBe(false);
+  expect(validationFuncs.shootPosition('t21', player)).toBe(false);
   expect(validationFuncs.shootPosition('U1', player)).toBe(false);
+  expect(validationFuncs.shootPosition('U21', player)).toBe(false);
   expect(validationFuncs.shootPosition('a-1', player)).toBe(false);
   expect(validationFuncs.shootPosition('T21', player)).toBe(false);
+  expect(validationFuncs.shootPosition('a121', player)).toBe(false);
+  expect(validationFuncs.shootPosition('t111', player)).toBe(false);
+  expect(validationFuncs.shootPosition('o21', player)).toBe(false);
+
 });
 
 test('test validation func for ship position - user place ship in valid position', () => {
