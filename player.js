@@ -27,7 +27,7 @@ class Player {
     }
 
     //Get the ship specification and store it
-    shipSpecGet(shipNumber, spec, value) {
+    ship(shipNumber, spec, value) {
         this.shipSpec[shipNumber][spec] = value;
     }
 

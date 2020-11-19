@@ -4,7 +4,7 @@ const cartesianPosition = helperFunctions.cartesianPosition;
 //Collections of functions for validating user input
 const validationFuncs = {
 
-    //Check battle groud dimention input is valid
+    //Check battle groud dimension input is valid
     battleGround: function (text) {
         const value = Number(text);
         if (value < 3 || !Number.isInteger(value)) {

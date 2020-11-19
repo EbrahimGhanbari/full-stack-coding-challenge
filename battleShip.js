@@ -24,7 +24,7 @@ const ask = (question) => {
 
 //Generic async function that gets question and validation function 
 //The program keep asking the same question until it gets valid input from user
-async function asyncAsk(question, validationFunction, player = {}, shipNumber = 0) {
+async function getInput(question, validationFunction, player = {}, shipNumber = 0) {
     let check = false;
     let result = '';
 
@@ -35,24 +35,24 @@ async function asyncAsk(question, validationFunction, player = {}, shipNumber = 
     return result;
 }
 
-async function asyncCall() {
+async function main() {
 
-    let input = await asyncAsk(`Please enter the battle ground size: `, validationFuncs.battleGround);
+    let input = await getInput(`Please enter the battle ground size: `, validationFuncs.battleGround);
     players.forEach(player => player.battleGroundMaker(Number(input)));
 
-    input = await asyncAsk(`Please enter number of ships for players: `, validationFuncs.shipNumber);
+    input = await getInput(`Please enter number of ships for players: `, validationFuncs.shipNumber);
     const shipCount = Number(input);
     players.forEach(player => player.shipCount(shipCount));
 
     for (let i = 1; i <= shipCount; i++) {
-        input = await asyncAsk(`Enter the size of the ${i}th ship: `, validationFuncs.shipSize, players[0]);
-        players.forEach(player => player.shipSpecGet(i, "size", Number(input)));
+        input = await getInput(`Enter the size of the ${i}th ship: `, validationFuncs.shipSize, players[0]);
+        players.forEach(player => player.ship(i, "size", Number(input)));
     }
 
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
-            input = await asyncAsk(`${player.name}: Enter the direction of ${i}th ship (v for vertical, h for horizontal): `, validationFuncs.direction);
-            player.shipSpecGet(i, "direction", input);
+            input = await getInput(`${player.name}: Enter the direction of ${i}th ship (v for vertical, h for horizontal): `, validationFuncs.direction);
+            player.ship(i, "direction", input);
         }
     }
 
@@ -60,8 +60,8 @@ async function asyncCall() {
 
     for (const player of players) {
         for (let i = 1; i <= shipCount; i++) {
-            input = await asyncAsk(`${player.name}: Enter the position of ${i}th ship: `, validationFuncs.battleshipPosition, player, i);
-            player.shipSpecGet(i, "position", input);
+            input = await getInput(`${player.name}: Enter the position of ${i}th ship: `, validationFuncs.battleshipPosition, player, i);
+            player.ship(i, "position", input);
             player.shipLocator(`${i}`)
         }
     }
@@ -70,7 +70,7 @@ async function asyncCall() {
     let gameOver = false;
     while (!gameOver) {
         for (let i = 0, j = players.length - 1; i < players.length; i++, j--) {
-            input = await asyncAsk(`${players[i].name}: Enter the position to hit ${players[j].name}: `, validationFuncs.shootPosition, players[0]);
+            input = await getInput(`${players[i].name}: Enter the position to hit ${players[j].name}: `, validationFuncs.shootPosition, players[0]);
             players[j].hit(input);
 
             if (players[j].countLives() === 0) {
@@ -86,4 +86,4 @@ async function asyncCall() {
     rl.close();
 }
 
-asyncCall()
+main()
