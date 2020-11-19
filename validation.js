@@ -7,8 +7,8 @@ const validationFuncs = {
     //Check battle groud dimension input is valid
     battleGround: function (text) {
         const value = Number(text);
-        if (value < 3 || !Number.isInteger(value)) {
-            console.log('Please enter a valid integer higher than 2');
+        if (value < 3 || value > 26 || !Number.isInteger(value)) {
+            console.log('Please enter a valid integer higher than 2 and lower than 27');
             return false;
         }
         return true;
@@ -24,7 +24,7 @@ const validationFuncs = {
         return true;
     },
 
-    //Check if number of ship is int and higher than 0
+    //Check if number of ship is int and higher than 0 and fits the board
     shipSize: function (text, player) {
         const value = Number(text);
         if (value < 1 || !Number.isInteger(value)) {
