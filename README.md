@@ -9,10 +9,11 @@ To play the game run the following command.
 npm start
 ```
 
-To run the tests run the following command.
+To run the tests, use the following command. Recommended version of the node: ** v10.23.0 **
 ```javascript
 npm run test
 ```
+
 
 ## Features
 - A two-player game that each player has a board. 
