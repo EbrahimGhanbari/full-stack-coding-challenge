@@ -14,7 +14,7 @@ To run the tests, use the following command.
 npm run test
 ```
 
-Please note that Jest (to run the test) might not work with older version of Node. The recommended version of the node to run the test is: **v10.23.0**
+Please note that Jest might not work with older version of Node. The recommended version to run the test is: **v10.23.0**
 
 
 ## Features
