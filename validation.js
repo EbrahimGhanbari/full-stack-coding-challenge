@@ -58,6 +58,12 @@ const validationFuncs = {
             return false;
         }
 
+        //Check if row number is integer
+        if (!Number.isInteger(row)) {
+            console.log(`The row value should be an integer`);
+            return false;
+        }
+
         //Check if the position is inside the board
         if (row > player.battleGround.length || column > player.battleGround.length) {
             console.log(`You placed the ship outside the board. Please enter valid position agian!`);
@@ -100,6 +106,12 @@ const validationFuncs = {
 
         if (row < 0 || !row || column < 0 || column > 26) {
             console.log(`The position you entered is not valid (first letter need to be Alphabet and the rest integer e.g 'A1')!!`);
+            return false;
+        }
+
+        //Check if row number is integer
+        if (!Number.isInteger(row)) {
+            console.log(`The row value should be an integer`);
             return false;
         }
 
